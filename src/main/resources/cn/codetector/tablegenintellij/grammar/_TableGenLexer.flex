@@ -40,22 +40,27 @@ CODE_FRAGMENT=\[\{([^]}]*)}]
 <YYINITIAL> {
   {WHITE_SPACE}        { return WHITE_SPACE; }
 
-  "bit"                { return KEYWORDBIT; }
-  "bits"               { return KEYWORDBITS; }
-  "class"              { return KEYWORDCLASS; }
+  "def"                { return KEYWORDDEF; }
+  "let"                { return KEYWORDLET; }
+  "in"                 { return KEYWORDIN; }
   "code"               { return KEYWORDCODE; }
   "dag"                { return KEYWORDDAG; }
-  "def"                { return KEYWORDDEF; }
-  "foreach"            { return KEYWORDFOREACH; }
-  "defm"               { return KEYWORDDEFM; }
   "field"              { return KEYWORDFIELD; }
-  "in"                 { return KEYWORDIN; }
-  "int"                { return KEYWORDINT; }
-  "let"                { return KEYWORDLET; }
-  "list"               { return KEYWORDLIST; }
-  "multiclass"         { return KEYWORDMULTICLASS; }
-  "string"             { return KEYWORDSTRING; }
   "include"            { return KEYWORDINCLUDE; }
+  "defm"               { return KEYWORDDEFM; }
+  "foreach"            { return KEYWORDFOREACH; }
+  "defset"             { return KEYWORDDEFSET; }
+  "defvar"             { return KEYWORDDEFVAR; }
+  "if"                 { return KEYWORDIF; }
+  "then"               { return KEYWORDTHEN; }
+  "else"               { return KEYWORDELSE; }
+  "class"              { return KEYWORDCLASS; }
+  "int"                { return KEYWORDINT; }
+  "string"             { return KEYWORDSTRING; }
+  "list"               { return KEYWORDLIST; }
+  "bit"                { return KEYWORDBIT; }
+  "bits"               { return KEYWORDBITS; }
+  "multiclass"         { return KEYWORDMULTICLASS; }
 
   {LINE_BREAK}         { return LINE_BREAK; }
   {WHITE_SPACE}        { return WHITE_SPACE; }

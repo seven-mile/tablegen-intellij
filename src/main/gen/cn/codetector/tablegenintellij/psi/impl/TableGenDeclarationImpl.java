@@ -21,6 +21,7 @@ public class TableGenDeclarationImpl extends ASTWrapperPsiElement implements Tab
     visitor.visitDeclaration(this);
   }
 
+  @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof TableGenVisitor) accept((TableGenVisitor)visitor);
     else super.accept(visitor);

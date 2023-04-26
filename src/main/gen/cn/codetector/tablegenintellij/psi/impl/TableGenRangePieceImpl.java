@@ -21,6 +21,7 @@ public class TableGenRangePieceImpl extends ASTWrapperPsiElement implements Tabl
     visitor.visitRangePiece(this);
   }
 
+  @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof TableGenVisitor) accept((TableGenVisitor)visitor);
     else super.accept(visitor);

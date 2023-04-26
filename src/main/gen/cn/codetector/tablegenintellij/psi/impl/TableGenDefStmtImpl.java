@@ -21,6 +21,7 @@ public class TableGenDefStmtImpl extends ASTWrapperPsiElement implements TableGe
     visitor.visitDefStmt(this);
   }
 
+  @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof TableGenVisitor) accept((TableGenVisitor)visitor);
     else super.accept(visitor);

@@ -21,6 +21,7 @@ public class TableGenTypeImpl extends ASTWrapperPsiElement implements TableGenTy
     visitor.visitType(this);
   }
 
+  @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof TableGenVisitor) accept((TableGenVisitor)visitor);
     else super.accept(visitor);

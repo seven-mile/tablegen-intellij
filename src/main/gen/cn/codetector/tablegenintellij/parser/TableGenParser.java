@@ -426,6 +426,21 @@ public class TableGenParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // KeywordDefVar IDENTIFIER "=" value ";"
+  public static boolean defvarStmt(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "defvarStmt")) return false;
+    if (!nextTokenIs(b, KEYWORDDEFVAR)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, KEYWORDDEFVAR, IDENTIFIER);
+    r = r && consumeToken(b, "=");
+    r = r && value(b, l + 1);
+    r = r && consumeToken(b, ";");
+    exit_section_(b, m, DEFVAR_STMT, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // KeywordInclude STRING
   public static boolean includeDirective(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "includeDirective")) return false;
@@ -568,7 +583,7 @@ public class TableGenParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // !<<eof>> (classStmt | defStmt | defmStmt | includeDirective | letStmt)
+  // !<<eof>> (classStmt | defStmt | defmStmt | includeDirective | letStmt | defvarStmt)
   static boolean object(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "object")) return false;
     boolean r;
@@ -589,7 +604,7 @@ public class TableGenParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // classStmt | defStmt | defmStmt | includeDirective | letStmt
+  // classStmt | defStmt | defmStmt | includeDirective | letStmt | defvarStmt
   private static boolean object_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "object_1")) return false;
     boolean r;
@@ -598,6 +613,7 @@ public class TableGenParser implements PsiParser, LightPsiParser {
     if (!r) r = defmStmt(b, l + 1);
     if (!r) r = includeDirective(b, l + 1);
     if (!r) r = letStmt(b, l + 1);
+    if (!r) r = defvarStmt(b, l + 1);
     return r;
   }
 

@@ -14,17 +14,47 @@ class TableGenSyntaxHighlighter : SyntaxHighlighterBase() {
     private val tokenHighlighters: MutableMap<IElementType, Array<TextAttributesKey>> = HashMap()
 
     init {
-        // Keywords
         tokenHighlighters[TableGenTypes.KEYWORDDEF] =
-            arrayOf(createTextAttributesKey("TABLEGEN_KEYWORDDEF", DefaultLanguageHighlighterColors.KEYWORD))
-        tokenHighlighters[TableGenTypes.KEYWORDDEFM] =
-            arrayOf(createTextAttributesKey("TABLEGEN_KEYWORDDEFM", DefaultLanguageHighlighterColors.KEYWORD))
-        tokenHighlighters[TableGenTypes.KEYWORDIN] =
-            arrayOf(createTextAttributesKey("TABLEGEN_KEYWORDIN", DefaultLanguageHighlighterColors.KEYWORD))
+            arrayOf(createTextAttributesKey("TABLEGEN_DEF", DefaultLanguageHighlighterColors.KEYWORD))
         tokenHighlighters[TableGenTypes.KEYWORDLET] =
-            arrayOf(createTextAttributesKey("TABLEGEN_KEYWORDLET", DefaultLanguageHighlighterColors.KEYWORD))
+            arrayOf(createTextAttributesKey("TABLEGEN_LET", DefaultLanguageHighlighterColors.KEYWORD))
+        tokenHighlighters[TableGenTypes.KEYWORDIN] =
+            arrayOf(createTextAttributesKey("TABLEGEN_IN", DefaultLanguageHighlighterColors.KEYWORD))
+        tokenHighlighters[TableGenTypes.KEYWORDCODE] =
+            arrayOf(createTextAttributesKey("TABLEGEN_CODE", DefaultLanguageHighlighterColors.KEYWORD))
+        tokenHighlighters[TableGenTypes.KEYWORDDAG] =
+            arrayOf(createTextAttributesKey("TABLEGEN_DAG", DefaultLanguageHighlighterColors.KEYWORD))
+        tokenHighlighters[TableGenTypes.KEYWORDFIELD] =
+            arrayOf(createTextAttributesKey("TABLEGEN_FIELD", DefaultLanguageHighlighterColors.KEYWORD))
+        tokenHighlighters[TableGenTypes.KEYWORDDEFM] =
+            arrayOf(createTextAttributesKey("TABLEGEN_DEFM", DefaultLanguageHighlighterColors.KEYWORD))
+        tokenHighlighters[TableGenTypes.KEYWORDFOREACH] =
+            arrayOf(createTextAttributesKey("TABLEGEN_FOREACH", DefaultLanguageHighlighterColors.KEYWORD))
+        tokenHighlighters[TableGenTypes.KEYWORDDEFSET] =
+            arrayOf(createTextAttributesKey("TABLEGEN_DEFSET", DefaultLanguageHighlighterColors.KEYWORD))
+        tokenHighlighters[TableGenTypes.KEYWORDDEFVAR] =
+            arrayOf(createTextAttributesKey("TABLEGEN_DEFVAR", DefaultLanguageHighlighterColors.KEYWORD))
+        tokenHighlighters[TableGenTypes.KEYWORDIF] =
+            arrayOf(createTextAttributesKey("TABLEGEN_IF", DefaultLanguageHighlighterColors.KEYWORD))
+        tokenHighlighters[TableGenTypes.KEYWORDTHEN] =
+            arrayOf(createTextAttributesKey("TABLEGEN_THEN", DefaultLanguageHighlighterColors.KEYWORD))
+        tokenHighlighters[TableGenTypes.KEYWORDELSE] =
+            arrayOf(createTextAttributesKey("TABLEGEN_ELSE", DefaultLanguageHighlighterColors.KEYWORD))
         tokenHighlighters[TableGenTypes.KEYWORDCLASS] =
-            arrayOf(createTextAttributesKey("TABLEGEN_KEYWORDCLASS", DefaultLanguageHighlighterColors.KEYWORD))
+            arrayOf(createTextAttributesKey("TABLEGEN_CLASS", DefaultLanguageHighlighterColors.KEYWORD))
+
+        tokenHighlighters[TableGenTypes.KEYWORDINT] =
+            arrayOf(createTextAttributesKey("TABLEGEN_INT", DefaultLanguageHighlighterColors.KEYWORD))
+        tokenHighlighters[TableGenTypes.KEYWORDSTRING] =
+            arrayOf(createTextAttributesKey("TABLEGEN_STRING", DefaultLanguageHighlighterColors.KEYWORD))
+        tokenHighlighters[TableGenTypes.KEYWORDLIST] =
+            arrayOf(createTextAttributesKey("TABLEGEN_LIST", DefaultLanguageHighlighterColors.KEYWORD))
+        tokenHighlighters[TableGenTypes.KEYWORDBIT] =
+            arrayOf(createTextAttributesKey("TABLEGEN_BIT", DefaultLanguageHighlighterColors.KEYWORD))
+        tokenHighlighters[TableGenTypes.KEYWORDBITS] =
+            arrayOf(createTextAttributesKey("TABLEGEN_BITS", DefaultLanguageHighlighterColors.KEYWORD))
+        tokenHighlighters[TableGenTypes.KEYWORDMULTICLASS] =
+                arrayOf(createTextAttributesKey("TABLEGEN_MULTICLASS", DefaultLanguageHighlighterColors.KEYWORD))
 
         // INCLUDE
         tokenHighlighters[TableGenTypes.KEYWORDINCLUDE] =

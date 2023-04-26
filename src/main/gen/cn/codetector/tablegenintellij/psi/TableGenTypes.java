@@ -22,6 +22,7 @@ public interface TableGenTypes {
   IElementType DECLARATION = new TableGenElementType("DECLARATION");
   IElementType DEFM_ID = new TableGenElementType("DEFM_ID");
   IElementType DEFM_STMT = new TableGenElementType("DEFM_STMT");
+  IElementType DEFVAR_STMT = new TableGenElementType("DEFVAR_STMT");
   IElementType DEF_STMT = new TableGenElementType("DEF_STMT");
   IElementType INCLUDE_DIRECTIVE = new TableGenElementType("INCLUDE_DIRECTIVE");
   IElementType INTEGER = new TableGenElementType("INTEGER");
@@ -54,8 +55,12 @@ public interface TableGenTypes {
   IElementType KEYWORDDAG = new TableGenTokenType("dag");
   IElementType KEYWORDDEF = new TableGenTokenType("def");
   IElementType KEYWORDDEFM = new TableGenTokenType("defm");
+  IElementType KEYWORDDEFSET = new TableGenTokenType("defset");
+  IElementType KEYWORDDEFVAR = new TableGenTokenType("defvar");
+  IElementType KEYWORDELSE = new TableGenTokenType("else");
   IElementType KEYWORDFIELD = new TableGenTokenType("field");
   IElementType KEYWORDFOREACH = new TableGenTokenType("foreach");
+  IElementType KEYWORDIF = new TableGenTokenType("if");
   IElementType KEYWORDIN = new TableGenTokenType("in");
   IElementType KEYWORDINCLUDE = new TableGenTokenType("include");
   IElementType KEYWORDINT = new TableGenTokenType("int");
@@ -63,6 +68,7 @@ public interface TableGenTypes {
   IElementType KEYWORDLIST = new TableGenTokenType("list");
   IElementType KEYWORDMULTICLASS = new TableGenTokenType("multiclass");
   IElementType KEYWORDSTRING = new TableGenTokenType("string");
+  IElementType KEYWORDTHEN = new TableGenTokenType("then");
   IElementType STRING = new TableGenTokenType("STRING");
   IElementType VARNAME = new TableGenTokenType("VARNAME");
 
@@ -110,6 +116,9 @@ public interface TableGenTypes {
       }
       else if (type == DEFM_STMT) {
         return new TableGenDefmStmtImpl(node);
+      }
+      else if (type == DEFVAR_STMT) {
+        return new TableGenDefvarStmtImpl(node);
       }
       else if (type == DEF_STMT) {
         return new TableGenDefStmtImpl(node);

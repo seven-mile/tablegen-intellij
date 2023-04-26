@@ -21,6 +21,7 @@ public class TableGenValueListImpl extends ASTWrapperPsiElement implements Table
     visitor.visitValueList(this);
   }
 
+  @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof TableGenVisitor) accept((TableGenVisitor)visitor);
     else super.accept(visitor);

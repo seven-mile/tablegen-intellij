@@ -21,6 +21,7 @@ public class TableGenSimpleValueImpl extends ASTWrapperPsiElement implements Tab
     visitor.visitSimpleValue(this);
   }
 
+  @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof TableGenVisitor) accept((TableGenVisitor)visitor);
     else super.accept(visitor);

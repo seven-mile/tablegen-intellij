@@ -11,14 +11,14 @@ import static cn.codetector.tablegenintellij.psi.TableGenTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import cn.codetector.tablegenintellij.psi.*;
 
-public class TableGenIncludeDirectiveImpl extends ASTWrapperPsiElement implements TableGenIncludeDirective {
+public class TableGenDefvarStmtImpl extends ASTWrapperPsiElement implements TableGenDefvarStmt {
 
-  public TableGenIncludeDirectiveImpl(@NotNull ASTNode node) {
+  public TableGenDefvarStmtImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TableGenVisitor visitor) {
-    visitor.visitIncludeDirective(this);
+    visitor.visitDefvarStmt(this);
   }
 
   @Override
@@ -29,8 +29,14 @@ public class TableGenIncludeDirectiveImpl extends ASTWrapperPsiElement implement
 
   @Override
   @NotNull
-  public PsiElement getString() {
-    return findNotNullChildByType(STRING);
+  public TableGenValue getValue() {
+    return findNotNullChildByClass(TableGenValue.class);
+  }
+
+  @Override
+  @NotNull
+  public PsiElement getIdentifier() {
+    return findNotNullChildByType(IDENTIFIER);
   }
 
 }

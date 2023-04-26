@@ -67,6 +67,10 @@ public class TableGenVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitDefvarStmt(@NotNull TableGenDefvarStmt o) {
+    visitPsiElement(o);
+  }
+
   public void visitIncludeDirective(@NotNull TableGenIncludeDirective o) {
     visitPsiElement(o);
   }

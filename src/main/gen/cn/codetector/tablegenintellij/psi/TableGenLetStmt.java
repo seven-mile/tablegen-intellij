@@ -17,6 +17,9 @@ public interface TableGenLetStmt extends PsiElement {
   List<TableGenDefmStmt> getDefmStmtList();
 
   @NotNull
+  List<TableGenDefvarStmt> getDefvarStmtList();
+
+  @NotNull
   List<TableGenIncludeDirective> getIncludeDirectiveList();
 
   @NotNull

@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.jetbrains.intellij' version '1.13.3'
     id 'org.jetbrains.kotlin.jvm' version '1.7.22'
+    id "org.jetbrains.grammarkit" version "2021.1.3"
 }
 
 group 'cn.codetector'
@@ -40,8 +41,25 @@ compileKotlin {
 compileTestKotlin {
     kotlinOptions.jvmTarget = "17"
 }
-//patchPluginXml {
-//    changeNotes """
-//      Add change notes here.<br>
-//      <em>most HTML tags may be used</em>"""
+
+apply plugin: 'org.jetbrains.grammarkit'
+
+import org.jetbrains.grammarkit.tasks.GenerateLexer
+import org.jetbrains.grammarkit.tasks.GenerateParser
+
+task generateTGLexer(type: GenerateLexer) {
+    // Task configuration options
+    source = "src/main/resources/cn/codetector/tablegenintellij/grammar/_TableGenLexer.flex"
+    targetDir = "src/main/gen/cn/codetector/tablegenintellij/grammar"
+    targetClass = "_TableGenLexer"
+    purgeOldFiles = true
+}
+
+//task generateTGParser(type: GenerateParser) {
+//    // Task configuration options
+//    source = "src/main/resources/cn/codetector/tablegenintellij/grammar/tablegen.bnf"
+//    targetRoot = 'gen'
+//    pathToParser = 'src/main/gen/cn/codetector/tablegenintellij/parser/TableGenParser.java'
+//    pathToPsiRoot = 'src/main/kotlin/cn/codetector/tablegenintellij/psi'
+//    purgeOldFiles = true
 //}

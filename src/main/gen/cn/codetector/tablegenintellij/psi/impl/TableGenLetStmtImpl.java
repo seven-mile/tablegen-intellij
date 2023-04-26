@@ -21,6 +21,7 @@ public class TableGenLetStmtImpl extends ASTWrapperPsiElement implements TableGe
     visitor.visitLetStmt(this);
   }
 
+  @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof TableGenVisitor) accept((TableGenVisitor)visitor);
     else super.accept(visitor);
@@ -42,6 +43,12 @@ public class TableGenLetStmtImpl extends ASTWrapperPsiElement implements TableGe
   @NotNull
   public List<TableGenDefmStmt> getDefmStmtList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TableGenDefmStmt.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TableGenDefvarStmt> getDefvarStmtList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TableGenDefvarStmt.class);
   }
 
   @Override
