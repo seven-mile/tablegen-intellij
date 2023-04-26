@@ -14,7 +14,6 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.TokenType
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
-import sun.tools.jstat.Token
 
 class TableGenParserDefinition : ParserDefinition {
 

@@ -11,7 +11,7 @@ class TableGenFileType : LanguageFileType(TableGenLanguage.INSTANCE) {
     }
 
     override fun getIcon(): Icon? =
-        TableGenIcons.FILEICON
+        null
 
     override fun getName(): String = "TableGen File"
 

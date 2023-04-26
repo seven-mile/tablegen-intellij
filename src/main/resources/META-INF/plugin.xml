@@ -12,6 +12,8 @@
     <!-- uncomment to enable plugin in all products
     <depends>com.intellij.modules.lang</depends>
     -->
+    <depends>com.intellij.modules.clion</depends>
+    <depends>com.intellij.modules.lang</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <fileType name="TableGen File" implementationClass="cn.codetector.tablegenintellij.plugin.TableGenFileType"
