@@ -576,6 +576,136 @@ public class TableGenParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // ";" | "{" multiBodyList "}"
+  public static boolean multiBody(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "multiBody")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, MULTI_BODY, "<multi body>");
+    r = consumeToken(b, ";");
+    if (!r) r = multiBody_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // "{" multiBodyList "}"
+  private static boolean multiBody_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "multiBody_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, "{");
+    r = r && multiBodyList(b, l + 1);
+    r = r && consumeToken(b, "}");
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // declaration ";"
+  //                  | KeywordLet IDENTIFIER [ "{" rangeList "}" ] "=" value ";"
+  //                  | KeywordField declaration ";"
+  //                  | KeywordDef value? objectBody
+  public static boolean multiBodyItem(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "multiBodyItem")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, MULTI_BODY_ITEM, "<multi body item>");
+    r = multiBodyItem_0(b, l + 1);
+    if (!r) r = multiBodyItem_1(b, l + 1);
+    if (!r) r = multiBodyItem_2(b, l + 1);
+    if (!r) r = multiBodyItem_3(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // declaration ";"
+  private static boolean multiBodyItem_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "multiBodyItem_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = declaration(b, l + 1);
+    r = r && consumeToken(b, ";");
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // KeywordLet IDENTIFIER [ "{" rangeList "}" ] "=" value ";"
+  private static boolean multiBodyItem_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "multiBodyItem_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, KEYWORDLET, IDENTIFIER);
+    r = r && multiBodyItem_1_2(b, l + 1);
+    r = r && consumeToken(b, "=");
+    r = r && value(b, l + 1);
+    r = r && consumeToken(b, ";");
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // [ "{" rangeList "}" ]
+  private static boolean multiBodyItem_1_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "multiBodyItem_1_2")) return false;
+    multiBodyItem_1_2_0(b, l + 1);
+    return true;
+  }
+
+  // "{" rangeList "}"
+  private static boolean multiBodyItem_1_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "multiBodyItem_1_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, "{");
+    r = r && rangeList(b, l + 1);
+    r = r && consumeToken(b, "}");
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // KeywordField declaration ";"
+  private static boolean multiBodyItem_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "multiBodyItem_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, KEYWORDFIELD);
+    r = r && declaration(b, l + 1);
+    r = r && consumeToken(b, ";");
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // KeywordDef value? objectBody
+  private static boolean multiBodyItem_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "multiBodyItem_3")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, KEYWORDDEF);
+    r = r && multiBodyItem_3_1(b, l + 1);
+    r = r && objectBody(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // value?
+  private static boolean multiBodyItem_3_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "multiBodyItem_3_1")) return false;
+    value(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // multiBodyItem*
+  public static boolean multiBodyList(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "multiBodyList")) return false;
+    Marker m = enter_section_(b, l, _NONE_, MULTI_BODY_LIST, "<multi body list>");
+    while (true) {
+      int c = current_position_(b);
+      if (!multiBodyItem(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "multiBodyList", c)) break;
+    }
+    exit_section_(b, l, m, true, false, null);
+    return true;
+  }
+
+  /* ********************************************************** */
   public static boolean multiClassID(PsiBuilder b, int l) {
     Marker m = enter_section_(b);
     exit_section_(b, m, MULTI_CLASS_ID, true);
@@ -583,7 +713,40 @@ public class TableGenParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // !<<eof>> (classStmt | defStmt | defmStmt | includeDirective | letStmt | defvarStmt)
+  // KeywordMultiClass IDENTIFIER templateArgList? multiObjectBody
+  public static boolean multiClassStmt(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "multiClassStmt")) return false;
+    if (!nextTokenIs(b, KEYWORDMULTICLASS)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, KEYWORDMULTICLASS, IDENTIFIER);
+    r = r && multiClassStmt_2(b, l + 1);
+    r = r && multiObjectBody(b, l + 1);
+    exit_section_(b, m, MULTI_CLASS_STMT, r);
+    return r;
+  }
+
+  // templateArgList?
+  private static boolean multiClassStmt_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "multiClassStmt_2")) return false;
+    templateArgList(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // baseClassList multiBody
+  public static boolean multiObjectBody(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "multiObjectBody")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, MULTI_OBJECT_BODY, "<multi object body>");
+    r = baseClassList(b, l + 1);
+    r = r && multiBody(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // !<<eof>> (classStmt | multiClassStmt | defStmt | defmStmt | includeDirective | letStmt | defvarStmt)
   static boolean object(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "object")) return false;
     boolean r;
@@ -604,11 +767,12 @@ public class TableGenParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // classStmt | defStmt | defmStmt | includeDirective | letStmt | defvarStmt
+  // classStmt | multiClassStmt | defStmt | defmStmt | includeDirective | letStmt | defvarStmt
   private static boolean object_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "object_1")) return false;
     boolean r;
     r = classStmt(b, l + 1);
+    if (!r) r = multiClassStmt(b, l + 1);
     if (!r) r = defStmt(b, l + 1);
     if (!r) r = defmStmt(b, l + 1);
     if (!r) r = includeDirective(b, l + 1);

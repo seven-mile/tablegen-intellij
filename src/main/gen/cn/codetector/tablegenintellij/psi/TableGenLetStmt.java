@@ -28,4 +28,7 @@ public interface TableGenLetStmt extends PsiElement {
   @NotNull
   List<TableGenLetStmt> getLetStmtList();
 
+  @NotNull
+  List<TableGenMultiClassStmt> getMultiClassStmtList();
+
 }

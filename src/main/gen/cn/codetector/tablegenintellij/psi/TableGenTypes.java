@@ -29,7 +29,12 @@ public interface TableGenTypes {
   IElementType LET_ITEM = new TableGenElementType("LET_ITEM");
   IElementType LET_LIST = new TableGenElementType("LET_LIST");
   IElementType LET_STMT = new TableGenElementType("LET_STMT");
+  IElementType MULTI_BODY = new TableGenElementType("MULTI_BODY");
+  IElementType MULTI_BODY_ITEM = new TableGenElementType("MULTI_BODY_ITEM");
+  IElementType MULTI_BODY_LIST = new TableGenElementType("MULTI_BODY_LIST");
   IElementType MULTI_CLASS_ID = new TableGenElementType("MULTI_CLASS_ID");
+  IElementType MULTI_CLASS_STMT = new TableGenElementType("MULTI_CLASS_STMT");
+  IElementType MULTI_OBJECT_BODY = new TableGenElementType("MULTI_OBJECT_BODY");
   IElementType OBJECT_BODY = new TableGenElementType("OBJECT_BODY");
   IElementType RANGE_LIST = new TableGenElementType("RANGE_LIST");
   IElementType RANGE_PIECE = new TableGenElementType("RANGE_PIECE");
@@ -138,8 +143,23 @@ public interface TableGenTypes {
       else if (type == LET_STMT) {
         return new TableGenLetStmtImpl(node);
       }
+      else if (type == MULTI_BODY) {
+        return new TableGenMultiBodyImpl(node);
+      }
+      else if (type == MULTI_BODY_ITEM) {
+        return new TableGenMultiBodyItemImpl(node);
+      }
+      else if (type == MULTI_BODY_LIST) {
+        return new TableGenMultiBodyListImpl(node);
+      }
       else if (type == MULTI_CLASS_ID) {
         return new TableGenMultiClassIDImpl(node);
+      }
+      else if (type == MULTI_CLASS_STMT) {
+        return new TableGenMultiClassStmtImpl(node);
+      }
+      else if (type == MULTI_OBJECT_BODY) {
+        return new TableGenMultiObjectBodyImpl(node);
       }
       else if (type == OBJECT_BODY) {
         return new TableGenObjectBodyImpl(node);

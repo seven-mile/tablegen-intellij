@@ -69,4 +69,10 @@ public class TableGenLetStmtImpl extends ASTWrapperPsiElement implements TableGe
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TableGenLetStmt.class);
   }
 
+  @Override
+  @NotNull
+  public List<TableGenMultiClassStmt> getMultiClassStmtList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TableGenMultiClassStmt.class);
+  }
+
 }

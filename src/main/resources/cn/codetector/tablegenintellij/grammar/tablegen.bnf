@@ -61,7 +61,7 @@
 
 tableGenFile ::= object*
 
-private object ::= !<<eof>> (classStmt | defStmt | defmStmt | includeDirective | letStmt | defvarStmt) {pin=3}
+private object ::= !<<eof>> (classStmt | multiClassStmt | defStmt | defmStmt | includeDirective | letStmt | defvarStmt) {pin=3}
 
 binaryInt ::= BIN_INT
 decimalInteger ::= ["-"] DEC_INT
@@ -109,6 +109,16 @@ multiClassID ::= // TODO
 classStmt ::= KeywordClass IDENTIFIER templateArgList? objectBody
 templateArgList ::= "<" declaration ("," declaration)* ">"
 declaration ::= type IDENTIFIER ("=" value)?
+
+multiClassStmt ::= KeywordMultiClass IDENTIFIER templateArgList? multiObjectBody
+multiObjectBody ::= baseClassList multiBody
+multiBody ::= ";" | "{" multiBodyList "}"
+multiBodyList ::= multiBodyItem*
+multiBodyItem ::= declaration ";"
+                 | KeywordLet IDENTIFIER [ "{" rangeList "}" ] "=" value ";"
+                 | KeywordField declaration ";"
+                 | KeywordDef value? objectBody
+
 
 objectBody      ::=  baseClassList body
 baseClassList   ::=  (":" baseClassListNE)?
