@@ -55,7 +55,7 @@
 
     STRING='regexp:"([^\n\r"]|\\n|\\")*"'
     // maximum one layer of nested braces in code fragments
-    CODE_FRAGMENT='regexp:\[\{([^}]|\}+(\]\}+)*([^}]]|\][^}]))*\}+(([^}]|\}+(\]\}+)*([^}]]|\][^}]))*\}|(}+)*)]'
+    CODE_FRAGMENT='regexp:\[\{([^}]|\}+(\]\}+)*([^}]]|\][^}>,]))*\}+(([^}>]|\}+(\]\}+)*([^}]]|\][^}]))*\}|(}+)*)\]'
     LINE_COMMENT="regexp://.*"
     BLOCK_COMMENT="regexp:/\*([^*]|\*+[^*/])*(\*+/)?"
 
