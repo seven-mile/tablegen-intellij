@@ -116,8 +116,8 @@ statement ::= assertStmt | classStmt | defStmt | defmStmt | defSetStmt | defvarS
 binaryInt ::= BIN_INT
 decimalInteger ::= ["-"] DEC_INT
 integer ::= binaryInt | decimalInteger | HEX_INT
-
-value ::= simpleValue valueSuffix* ( "#" value )*
+// workaround for poorly defined value with # but no value after it
+value ::= simpleValue valueSuffix* ( "#" value )* ( "#" )*
 
 valueSuffix ::=  '{' rangeList '}'
                | '[' sliceElements ']'

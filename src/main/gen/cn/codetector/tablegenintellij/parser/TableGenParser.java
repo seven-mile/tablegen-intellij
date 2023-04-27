@@ -1636,7 +1636,7 @@ public class TableGenParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // simpleValue valueSuffix* ( "#" value )*
+  // simpleValue valueSuffix* ( "#" value )* ( "#" )*
   public static boolean value(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "value")) return false;
     boolean r;
@@ -1644,6 +1644,7 @@ public class TableGenParser implements PsiParser, LightPsiParser {
     r = simpleValue(b, l + 1);
     r = r && value_1(b, l + 1);
     r = r && value_2(b, l + 1);
+    r = r && value_3(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -1677,6 +1678,27 @@ public class TableGenParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, "#");
     r = r && value(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // ( "#" )*
+  private static boolean value_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "value_3")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!value_3_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "value_3", c)) break;
+    }
+    return true;
+  }
+
+  // ( "#" )
+  private static boolean value_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "value_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, "#");
     exit_section_(b, m, null, r);
     return r;
   }
