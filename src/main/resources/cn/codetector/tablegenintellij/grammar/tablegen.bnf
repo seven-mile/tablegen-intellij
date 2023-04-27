@@ -226,6 +226,8 @@ declaration ::= ([KeywordField] type | KeywordCode) IDENTIFIER ("=" value)?
 
 multiClassStmt ::= KeywordMultiClass IDENTIFIER templateArgList? parentClassList
                     "{" multiClassStatement+ "}"
+                  // hack for certain uses of multiClassStmt where {} is missing.
+                  | KeywordMultiClass IDENTIFIER templateArgList? parentClassList ";"
 
 multiClassStatement ::= assertStmt | defStmt | defmStmt | defvarStmt | forEachStmt | ifStmt | letStmt
 

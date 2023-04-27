@@ -1026,41 +1026,75 @@ public class TableGenParser implements PsiParser, LightPsiParser {
   /* ********************************************************** */
   // KeywordMultiClass IDENTIFIER templateArgList? parentClassList
   //                     "{" multiClassStatement+ "}"
+  //                   // hack for certain uses of multiClassStmt where {} is missing.
+  //                   | KeywordMultiClass IDENTIFIER templateArgList? parentClassList ";"
   public static boolean multiClassStmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "multiClassStmt")) return false;
     if (!nextTokenIs(b, KEYWORDMULTICLASS)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, KEYWORDMULTICLASS, IDENTIFIER);
-    r = r && multiClassStmt_2(b, l + 1);
-    r = r && parentClassList(b, l + 1);
-    r = r && consumeToken(b, "{");
-    r = r && multiClassStmt_5(b, l + 1);
-    r = r && consumeToken(b, "}");
+    r = multiClassStmt_0(b, l + 1);
+    if (!r) r = multiClassStmt_1(b, l + 1);
     exit_section_(b, m, MULTI_CLASS_STMT, r);
     return r;
   }
 
+  // KeywordMultiClass IDENTIFIER templateArgList? parentClassList
+  //                     "{" multiClassStatement+ "}"
+  private static boolean multiClassStmt_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "multiClassStmt_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, KEYWORDMULTICLASS, IDENTIFIER);
+    r = r && multiClassStmt_0_2(b, l + 1);
+    r = r && parentClassList(b, l + 1);
+    r = r && consumeToken(b, "{");
+    r = r && multiClassStmt_0_5(b, l + 1);
+    r = r && consumeToken(b, "}");
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
   // templateArgList?
-  private static boolean multiClassStmt_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "multiClassStmt_2")) return false;
+  private static boolean multiClassStmt_0_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "multiClassStmt_0_2")) return false;
     templateArgList(b, l + 1);
     return true;
   }
 
   // multiClassStatement+
-  private static boolean multiClassStmt_5(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "multiClassStmt_5")) return false;
+  private static boolean multiClassStmt_0_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "multiClassStmt_0_5")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = multiClassStatement(b, l + 1);
     while (r) {
       int c = current_position_(b);
       if (!multiClassStatement(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "multiClassStmt_5", c)) break;
+      if (!empty_element_parsed_guard_(b, "multiClassStmt_0_5", c)) break;
     }
     exit_section_(b, m, null, r);
     return r;
+  }
+
+  // KeywordMultiClass IDENTIFIER templateArgList? parentClassList ";"
+  private static boolean multiClassStmt_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "multiClassStmt_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, KEYWORDMULTICLASS, IDENTIFIER);
+    r = r && multiClassStmt_1_2(b, l + 1);
+    r = r && parentClassList(b, l + 1);
+    r = r && consumeToken(b, ";");
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // templateArgList?
+  private static boolean multiClassStmt_1_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "multiClassStmt_1_2")) return false;
+    templateArgList(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */
