@@ -46,7 +46,6 @@
     KeywordBits="bits"
     KeywordMultiClass="multiclass"
 
-    COMMENTS="regexp:(//.*?|/\*(.|\n)*?\*/)"
     IDENTIFIER="regexp:[0-9]*[a-zA-Z_]([a-zA-Z_]|[0-9])*"
     BANG_OPR="!"
     VARNAME="regexp:[$][a-zA-Z_]([a-zA-Z_]|[0-9])*"
@@ -59,6 +58,8 @@
     CODE_FRAGMENT='regexp:\[\{([^}\]]*)}]'
     // todo: fix condition
     CONDITION='regexp:[!]*[a-zA-Z_][a-zA-Z_0-9]*'
+    LINE_COMMENT="regexp://.*"
+    BLOCK_COMMENT="regexp:/\*([^*]|\*+[^*/])*(\*+/)?"
   ]
 }
 tableGenFile ::= object*

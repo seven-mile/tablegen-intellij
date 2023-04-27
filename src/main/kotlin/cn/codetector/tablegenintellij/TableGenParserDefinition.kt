@@ -18,7 +18,8 @@ import com.intellij.psi.tree.TokenSet
 class TableGenParserDefinition : ParserDefinition {
 
     val WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE)
-    val COMMENTS = TokenSet.create(TableGenTypes.COMMENTS)
+    val BLOCK_COMMENT = TokenSet.create(TableGenTypes.BLOCK_COMMENT)
+    val LINE_COMMENT = TokenSet.create(TableGenTypes.LINE_COMMENT)
 
     val FILE = IFileElementType(TableGenLanguage.INSTANCE)
 
@@ -37,7 +38,7 @@ class TableGenParserDefinition : ParserDefinition {
     override fun createElement(node: ASTNode?): PsiElement =
         TableGenTypes.Factory.createElement(node)
 
-    override fun getCommentTokens(): TokenSet = COMMENTS
+    override fun getCommentTokens(): TokenSet = TokenSet.orSet(BLOCK_COMMENT, LINE_COMMENT)
 
     override fun getWhitespaceTokens(): TokenSet = WHITE_SPACES
 }

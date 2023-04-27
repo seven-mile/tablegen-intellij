@@ -49,8 +49,8 @@ public interface TableGenTypes {
 
   IElementType BANG_OPR = new TableGenTokenType("!");
   IElementType BIN_INT = new TableGenTokenType("BIN_INT");
+  IElementType BLOCK_COMMENT = new TableGenTokenType("BLOCK_COMMENT");
   IElementType CODE_FRAGMENT = new TableGenTokenType("CODE_FRAGMENT");
-  IElementType COMMENTS = new TableGenTokenType("COMMENTS");
   IElementType CONDITION = new TableGenTokenType("CONDITION");
   IElementType DEC_INT = new TableGenTokenType("DEC_INT");
   IElementType HEX_INT = new TableGenTokenType("HEX_INT");
@@ -77,6 +77,7 @@ public interface TableGenTypes {
   IElementType KEYWORDMULTICLASS = new TableGenTokenType("multiclass");
   IElementType KEYWORDSTRING = new TableGenTokenType("string");
   IElementType KEYWORDTHEN = new TableGenTokenType("then");
+  IElementType LINE_COMMENT = new TableGenTokenType("LINE_COMMENT");
   IElementType STRING = new TableGenTokenType("STRING");
   IElementType VARNAME = new TableGenTokenType("VARNAME");
 

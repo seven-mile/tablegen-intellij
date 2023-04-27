@@ -27,7 +27,6 @@ WHITE_SPACE=\s+
 
 LINE_BREAK=[\r\n]
 WHITE_SPACE=[ \t\n\x0B\f\r]+
-COMMENTS=("//".*?|"/"\*(.|\n)*?\*"/")
 IDENTIFIER=[0-9]*[a-zA-Z_]([a-zA-Z_]|[0-9])*
 VARNAME=[$][a-zA-Z_]([a-zA-Z_]|[0-9])*
 BIN_INT=0b[0-1]+
@@ -36,6 +35,8 @@ DEC_INT=[0-9]+
 STRING=\"([^\n\r\"]|\\n|\\\")*\"
 CODE_FRAGMENT=\[\{([^}\]]*)}]
 CONDITION=[!]*[a-zA-Z_][a-zA-Z_0-9]*
+LINE_COMMENT="//".*
+BLOCK_COMMENT="/"\*([^*]|\*+[^*/])*(\*+"/")?
 
 %%
 <YYINITIAL> {
@@ -67,7 +68,6 @@ CONDITION=[!]*[a-zA-Z_][a-zA-Z_0-9]*
 
   {LINE_BREAK}         { return LINE_BREAK; }
   {WHITE_SPACE}        { return WHITE_SPACE; }
-  {COMMENTS}           { return COMMENTS; }
   {IDENTIFIER}         { return IDENTIFIER; }
   {VARNAME}            { return VARNAME; }
   {BIN_INT}            { return BIN_INT; }
@@ -76,6 +76,8 @@ CONDITION=[!]*[a-zA-Z_][a-zA-Z_0-9]*
   {STRING}             { return STRING; }
   {CODE_FRAGMENT}      { return CODE_FRAGMENT; }
   {CONDITION}          { return CONDITION; }
+  {LINE_COMMENT}       { return LINE_COMMENT; }
+  {BLOCK_COMMENT}      { return BLOCK_COMMENT; }
 
 }
 
