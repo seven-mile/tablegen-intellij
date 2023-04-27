@@ -818,8 +818,8 @@ public class TableGenParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // KeywordIf value KeywordThen ifBody
-  //             | KeywordIf value KeywordThen ifBody KeywordElse ifBody
+  // KeywordIf value KeywordThen ifBody KeywordElse ifBody
+  //             | KeywordIf value KeywordThen ifBody
   public static boolean ifStmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ifStmt")) return false;
     if (!nextTokenIs(b, KEYWORDIF)) return false;
@@ -831,7 +831,7 @@ public class TableGenParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // KeywordIf value KeywordThen ifBody
+  // KeywordIf value KeywordThen ifBody KeywordElse ifBody
   private static boolean ifStmt_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ifStmt_0")) return false;
     boolean r;
@@ -840,11 +840,13 @@ public class TableGenParser implements PsiParser, LightPsiParser {
     r = r && value(b, l + 1);
     r = r && consumeToken(b, KEYWORDTHEN);
     r = r && ifBody(b, l + 1);
+    r = r && consumeToken(b, KEYWORDELSE);
+    r = r && ifBody(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // KeywordIf value KeywordThen ifBody KeywordElse ifBody
+  // KeywordIf value KeywordThen ifBody
   private static boolean ifStmt_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ifStmt_1")) return false;
     boolean r;
@@ -852,8 +854,6 @@ public class TableGenParser implements PsiParser, LightPsiParser {
     r = consumeToken(b, KEYWORDIF);
     r = r && value(b, l + 1);
     r = r && consumeToken(b, KEYWORDTHEN);
-    r = r && ifBody(b, l + 1);
-    r = r && consumeToken(b, KEYWORDELSE);
     r = r && ifBody(b, l + 1);
     exit_section_(b, m, null, r);
     return r;

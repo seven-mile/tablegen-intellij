@@ -255,8 +255,8 @@ defvarStmt ::= KeywordDefVar IDENTIFIER "=" value ";"
 
 assertStmt ::= KeywordAssert conditionFunction "," STRING ";"
 
-ifStmt ::= KeywordIf value KeywordThen ifBody
-            | KeywordIf value KeywordThen ifBody KeywordElse ifBody
+ifStmt ::= KeywordIf value KeywordThen ifBody KeywordElse ifBody
+            | KeywordIf value KeywordThen ifBody
 ifBody ::= "{" statement* "}" | statement
 
 forEachStmt ::= KeywordForEach forEachIterator KeywordIn "{" statement* "}"
