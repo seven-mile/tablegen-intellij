@@ -11,6 +11,9 @@ public interface TableGenValue extends PsiElement {
   TableGenSimpleValue getSimpleValue();
 
   @NotNull
+  List<TableGenValue> getValueList();
+
+  @NotNull
   List<TableGenValueSuffix> getValueSuffixList();
 
 }

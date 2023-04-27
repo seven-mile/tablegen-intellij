@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface TableGenDeclaration extends PsiElement {
 
-  @NotNull
+  @Nullable
   TableGenType getType();
 
   @Nullable

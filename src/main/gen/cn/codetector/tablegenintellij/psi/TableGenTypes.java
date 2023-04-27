@@ -8,6 +8,7 @@ import cn.codetector.tablegenintellij.psi.impl.*;
 
 public interface TableGenTypes {
 
+  IElementType ASSERT_STMT = new TableGenElementType("ASSERT_STMT");
   IElementType BASE_CLASS_LIST = new TableGenElementType("BASE_CLASS_LIST");
   IElementType BASE_CLASS_LIST_NE = new TableGenElementType("BASE_CLASS_LIST_NE");
   IElementType BINARY_INT = new TableGenElementType("BINARY_INT");
@@ -29,16 +30,15 @@ public interface TableGenTypes {
   IElementType LET_ITEM = new TableGenElementType("LET_ITEM");
   IElementType LET_LIST = new TableGenElementType("LET_LIST");
   IElementType LET_STMT = new TableGenElementType("LET_STMT");
-  IElementType MULTI_BODY = new TableGenElementType("MULTI_BODY");
-  IElementType MULTI_BODY_ITEM = new TableGenElementType("MULTI_BODY_ITEM");
-  IElementType MULTI_BODY_LIST = new TableGenElementType("MULTI_BODY_LIST");
   IElementType MULTI_CLASS_ID = new TableGenElementType("MULTI_CLASS_ID");
+  IElementType MULTI_CLASS_STATEMENT = new TableGenElementType("MULTI_CLASS_STATEMENT");
   IElementType MULTI_CLASS_STMT = new TableGenElementType("MULTI_CLASS_STMT");
-  IElementType MULTI_OBJECT_BODY = new TableGenElementType("MULTI_OBJECT_BODY");
   IElementType OBJECT_BODY = new TableGenElementType("OBJECT_BODY");
   IElementType RANGE_LIST = new TableGenElementType("RANGE_LIST");
   IElementType RANGE_PIECE = new TableGenElementType("RANGE_PIECE");
   IElementType SIMPLE_VALUE = new TableGenElementType("SIMPLE_VALUE");
+  IElementType SLICE_ELEMENT = new TableGenElementType("SLICE_ELEMENT");
+  IElementType SLICE_ELEMENTS = new TableGenElementType("SLICE_ELEMENTS");
   IElementType SUB_CLASS_REF = new TableGenElementType("SUB_CLASS_REF");
   IElementType TEMPLATE_ARG_LIST = new TableGenElementType("TEMPLATE_ARG_LIST");
   IElementType TYPE = new TableGenElementType("TYPE");
@@ -47,12 +47,15 @@ public interface TableGenTypes {
   IElementType VALUE_LIST_NE = new TableGenElementType("VALUE_LIST_NE");
   IElementType VALUE_SUFFIX = new TableGenElementType("VALUE_SUFFIX");
 
+  IElementType BANG_OPR = new TableGenTokenType("!");
   IElementType BIN_INT = new TableGenTokenType("BIN_INT");
   IElementType CODE_FRAGMENT = new TableGenTokenType("CODE_FRAGMENT");
   IElementType COMMENTS = new TableGenTokenType("COMMENTS");
+  IElementType CONDITION = new TableGenTokenType("CONDITION");
   IElementType DEC_INT = new TableGenTokenType("DEC_INT");
   IElementType HEX_INT = new TableGenTokenType("HEX_INT");
   IElementType IDENTIFIER = new TableGenTokenType("IDENTIFIER");
+  IElementType KEYWORDASSERT = new TableGenTokenType("KeywordAssert");
   IElementType KEYWORDBIT = new TableGenTokenType("bit");
   IElementType KEYWORDBITS = new TableGenTokenType("bits");
   IElementType KEYWORDCLASS = new TableGenTokenType("class");
@@ -80,7 +83,10 @@ public interface TableGenTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == BASE_CLASS_LIST) {
+      if (type == ASSERT_STMT) {
+        return new TableGenAssertStmtImpl(node);
+      }
+      else if (type == BASE_CLASS_LIST) {
         return new TableGenBaseClassListImpl(node);
       }
       else if (type == BASE_CLASS_LIST_NE) {
@@ -143,23 +149,14 @@ public interface TableGenTypes {
       else if (type == LET_STMT) {
         return new TableGenLetStmtImpl(node);
       }
-      else if (type == MULTI_BODY) {
-        return new TableGenMultiBodyImpl(node);
-      }
-      else if (type == MULTI_BODY_ITEM) {
-        return new TableGenMultiBodyItemImpl(node);
-      }
-      else if (type == MULTI_BODY_LIST) {
-        return new TableGenMultiBodyListImpl(node);
-      }
       else if (type == MULTI_CLASS_ID) {
         return new TableGenMultiClassIDImpl(node);
       }
+      else if (type == MULTI_CLASS_STATEMENT) {
+        return new TableGenMultiClassStatementImpl(node);
+      }
       else if (type == MULTI_CLASS_STMT) {
         return new TableGenMultiClassStmtImpl(node);
-      }
-      else if (type == MULTI_OBJECT_BODY) {
-        return new TableGenMultiObjectBodyImpl(node);
       }
       else if (type == OBJECT_BODY) {
         return new TableGenObjectBodyImpl(node);
@@ -172,6 +169,12 @@ public interface TableGenTypes {
       }
       else if (type == SIMPLE_VALUE) {
         return new TableGenSimpleValueImpl(node);
+      }
+      else if (type == SLICE_ELEMENT) {
+        return new TableGenSliceElementImpl(node);
+      }
+      else if (type == SLICE_ELEMENTS) {
+        return new TableGenSliceElementsImpl(node);
       }
       else if (type == SUB_CLASS_REF) {
         return new TableGenSubClassRefImpl(node);

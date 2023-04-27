@@ -27,14 +27,15 @@ WHITE_SPACE=\s+
 
 LINE_BREAK=[\r\n]
 WHITE_SPACE=[ \t\n\x0B\f\r]+
-COMMENTS=("//".*)|("/"\*(.|\n)*\*"/")
+COMMENTS=("//".*?|"/"\*(.|\n)*?\*"/")
 IDENTIFIER=[0-9]*[a-zA-Z_]([a-zA-Z_]|[0-9])*
 VARNAME=[$][a-zA-Z_]([a-zA-Z_]|[0-9])*
 BIN_INT=0b[0-1]+
 HEX_INT=0x[0-9a-fA-F]+
 DEC_INT=[0-9]+
 STRING=\"([^\n\r\"]|\\n|\\\")*\"
-CODE_FRAGMENT=\[\{([^]}]*)}]
+CODE_FRAGMENT=\[\{([^}\]]*)}]
+CONDITION=[!]*[a-zA-Z_][a-zA-Z_0-9]*
 
 %%
 <YYINITIAL> {
@@ -61,6 +62,8 @@ CODE_FRAGMENT=\[\{([^]}]*)}]
   "bit"                { return KEYWORDBIT; }
   "bits"               { return KEYWORDBITS; }
   "multiclass"         { return KEYWORDMULTICLASS; }
+  "!"                  { return BANG_OPR; }
+  "KeywordAssert"      { return KEYWORDASSERT; }
 
   {LINE_BREAK}         { return LINE_BREAK; }
   {WHITE_SPACE}        { return WHITE_SPACE; }
@@ -72,6 +75,7 @@ CODE_FRAGMENT=\[\{([^]}]*)}]
   {DEC_INT}            { return DEC_INT; }
   {STRING}             { return STRING; }
   {CODE_FRAGMENT}      { return CODE_FRAGMENT; }
+  {CONDITION}          { return CONDITION; }
 
 }
 

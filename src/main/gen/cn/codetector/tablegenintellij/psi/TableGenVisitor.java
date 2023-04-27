@@ -7,6 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public class TableGenVisitor extends PsiElementVisitor {
 
+  public void visitAssertStmt(@NotNull TableGenAssertStmt o) {
+    visitPsiElement(o);
+  }
+
   public void visitBaseClassList(@NotNull TableGenBaseClassList o) {
     visitPsiElement(o);
   }
@@ -91,27 +95,15 @@ public class TableGenVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitMultiBody(@NotNull TableGenMultiBody o) {
-    visitPsiElement(o);
-  }
-
-  public void visitMultiBodyItem(@NotNull TableGenMultiBodyItem o) {
-    visitPsiElement(o);
-  }
-
-  public void visitMultiBodyList(@NotNull TableGenMultiBodyList o) {
-    visitPsiElement(o);
-  }
-
   public void visitMultiClassID(@NotNull TableGenMultiClassID o) {
     visitPsiElement(o);
   }
 
-  public void visitMultiClassStmt(@NotNull TableGenMultiClassStmt o) {
+  public void visitMultiClassStatement(@NotNull TableGenMultiClassStatement o) {
     visitPsiElement(o);
   }
 
-  public void visitMultiObjectBody(@NotNull TableGenMultiObjectBody o) {
+  public void visitMultiClassStmt(@NotNull TableGenMultiClassStmt o) {
     visitPsiElement(o);
   }
 
@@ -128,6 +120,14 @@ public class TableGenVisitor extends PsiElementVisitor {
   }
 
   public void visitSimpleValue(@NotNull TableGenSimpleValue o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSliceElement(@NotNull TableGenSliceElement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSliceElements(@NotNull TableGenSliceElements o) {
     visitPsiElement(o);
   }
 

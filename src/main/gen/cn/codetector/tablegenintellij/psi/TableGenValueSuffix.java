@@ -11,6 +11,9 @@ public interface TableGenValueSuffix extends PsiElement {
   TableGenRangeList getRangeList();
 
   @Nullable
+  TableGenSliceElements getSliceElements();
+
+  @Nullable
   PsiElement getIdentifier();
 
 }

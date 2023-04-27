@@ -27,4 +27,10 @@ public class TableGenMultiClassIDImpl extends ASTWrapperPsiElement implements Ta
     else super.accept(visitor);
   }
 
+  @Override
+  @NotNull
+  public PsiElement getIdentifier() {
+    return findNotNullChildByType(IDENTIFIER);
+  }
+
 }

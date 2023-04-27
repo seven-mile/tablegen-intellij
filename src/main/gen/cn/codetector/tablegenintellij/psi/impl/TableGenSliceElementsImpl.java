@@ -11,14 +11,14 @@ import static cn.codetector.tablegenintellij.psi.TableGenTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import cn.codetector.tablegenintellij.psi.*;
 
-public class TableGenMultiBodyImpl extends ASTWrapperPsiElement implements TableGenMultiBody {
+public class TableGenSliceElementsImpl extends ASTWrapperPsiElement implements TableGenSliceElements {
 
-  public TableGenMultiBodyImpl(@NotNull ASTNode node) {
+  public TableGenSliceElementsImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TableGenVisitor visitor) {
-    visitor.visitMultiBody(this);
+    visitor.visitSliceElements(this);
   }
 
   @Override
@@ -28,9 +28,9 @@ public class TableGenMultiBodyImpl extends ASTWrapperPsiElement implements Table
   }
 
   @Override
-  @Nullable
-  public TableGenMultiBodyList getMultiBodyList() {
-    return findChildByClass(TableGenMultiBodyList.class);
+  @NotNull
+  public List<TableGenSliceElement> getSliceElementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TableGenSliceElement.class);
   }
 
 }

@@ -35,6 +35,12 @@ public class TableGenValueImpl extends ASTWrapperPsiElement implements TableGenV
 
   @Override
   @NotNull
+  public List<TableGenValue> getValueList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TableGenValue.class);
+  }
+
+  @Override
+  @NotNull
   public List<TableGenValueSuffix> getValueSuffixList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TableGenValueSuffix.class);
   }

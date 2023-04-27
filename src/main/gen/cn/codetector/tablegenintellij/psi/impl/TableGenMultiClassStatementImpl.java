@@ -11,14 +11,14 @@ import static cn.codetector.tablegenintellij.psi.TableGenTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import cn.codetector.tablegenintellij.psi.*;
 
-public class TableGenMultiBodyItemImpl extends ASTWrapperPsiElement implements TableGenMultiBodyItem {
+public class TableGenMultiClassStatementImpl extends ASTWrapperPsiElement implements TableGenMultiClassStatement {
 
-  public TableGenMultiBodyItemImpl(@NotNull ASTNode node) {
+  public TableGenMultiClassStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TableGenVisitor visitor) {
-    visitor.visitMultiBodyItem(this);
+    visitor.visitMultiClassStatement(this);
   }
 
   @Override
@@ -29,32 +29,32 @@ public class TableGenMultiBodyItemImpl extends ASTWrapperPsiElement implements T
 
   @Override
   @Nullable
-  public TableGenDeclaration getDeclaration() {
-    return findChildByClass(TableGenDeclaration.class);
+  public TableGenAssertStmt getAssertStmt() {
+    return findChildByClass(TableGenAssertStmt.class);
   }
 
   @Override
   @Nullable
-  public TableGenObjectBody getObjectBody() {
-    return findChildByClass(TableGenObjectBody.class);
+  public TableGenDefStmt getDefStmt() {
+    return findChildByClass(TableGenDefStmt.class);
   }
 
   @Override
   @Nullable
-  public TableGenRangeList getRangeList() {
-    return findChildByClass(TableGenRangeList.class);
+  public TableGenDefmStmt getDefmStmt() {
+    return findChildByClass(TableGenDefmStmt.class);
   }
 
   @Override
   @Nullable
-  public TableGenValue getValue() {
-    return findChildByClass(TableGenValue.class);
+  public TableGenDefvarStmt getDefvarStmt() {
+    return findChildByClass(TableGenDefvarStmt.class);
   }
 
   @Override
   @Nullable
-  public PsiElement getIdentifier() {
-    return findChildByType(IDENTIFIER);
+  public TableGenLetStmt getLetStmt() {
+    return findChildByClass(TableGenLetStmt.class);
   }
 
 }

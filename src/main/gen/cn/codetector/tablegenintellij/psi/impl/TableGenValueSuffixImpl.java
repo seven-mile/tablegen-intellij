@@ -35,6 +35,12 @@ public class TableGenValueSuffixImpl extends ASTWrapperPsiElement implements Tab
 
   @Override
   @Nullable
+  public TableGenSliceElements getSliceElements() {
+    return findChildByClass(TableGenSliceElements.class);
+  }
+
+  @Override
+  @Nullable
   public PsiElement getIdentifier() {
     return findChildByType(IDENTIFIER);
   }

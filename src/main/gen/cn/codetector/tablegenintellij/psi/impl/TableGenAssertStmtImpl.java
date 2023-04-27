@@ -11,14 +11,14 @@ import static cn.codetector.tablegenintellij.psi.TableGenTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import cn.codetector.tablegenintellij.psi.*;
 
-public class TableGenMultiBodyListImpl extends ASTWrapperPsiElement implements TableGenMultiBodyList {
+public class TableGenAssertStmtImpl extends ASTWrapperPsiElement implements TableGenAssertStmt {
 
-  public TableGenMultiBodyListImpl(@NotNull ASTNode node) {
+  public TableGenAssertStmtImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TableGenVisitor visitor) {
-    visitor.visitMultiBodyList(this);
+    visitor.visitAssertStmt(this);
   }
 
   @Override
@@ -29,8 +29,14 @@ public class TableGenMultiBodyListImpl extends ASTWrapperPsiElement implements T
 
   @Override
   @NotNull
-  public List<TableGenMultiBodyItem> getMultiBodyItemList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TableGenMultiBodyItem.class);
+  public PsiElement getCondition() {
+    return findNotNullChildByType(CONDITION);
+  }
+
+  @Override
+  @NotNull
+  public PsiElement getString() {
+    return findNotNullChildByType(STRING);
   }
 
 }

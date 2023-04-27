@@ -46,8 +46,9 @@
     KeywordBits="bits"
     KeywordMultiClass="multiclass"
 
-    COMMENTS="regexp:(//.*)|(/\*(.|\n)*\*/)"
+    COMMENTS="regexp:(//.*?|/\*(.|\n)*?\*/)"
     IDENTIFIER="regexp:[0-9]*[a-zA-Z_]([a-zA-Z_]|[0-9])*"
+    BANG_OPR="!"
     VARNAME="regexp:[$][a-zA-Z_]([a-zA-Z_]|[0-9])*"
 
     BIN_INT="regexp:0b[0-1]+"
@@ -55,10 +56,11 @@
     DEC_INT="regexp:[0-9]+"
 
     STRING='regexp:"([^\n\r"]|\\n|\\")*"'
-    CODE_FRAGMENT='regexp:\[\{([^]}]*)}]'
+    CODE_FRAGMENT='regexp:\[\{([^}\]]*)}]'
+    // todo: fix condition
+    CONDITION='regexp:[!]*[a-zA-Z_][a-zA-Z_0-9]*'
   ]
 }
-
 tableGenFile ::= object*
 
 private object ::= !<<eof>> (classStmt | multiClassStmt | defStmt | defmStmt | includeDirective | letStmt | defvarStmt) {pin=3}
@@ -67,10 +69,16 @@ binaryInt ::= BIN_INT
 decimalInteger ::= ["-"] DEC_INT
 integer ::= binaryInt | decimalInteger | HEX_INT
 
-value ::= simpleValue valueSuffix*
+value ::= simpleValue valueSuffix* ( "#" value )*
+
 valueSuffix ::=  '{' rangeList '}'
-               | '[' rangeList ']'
+               | '[' sliceElements ']'
                | '.' IDENTIFIER
+sliceElements ::= (sliceElement ",")* sliceElement ","?
+sliceElement ::= value
+                | value "..." value
+                | value "-" value
+                | value integer
 simpleValue ::= CODE_FRAGMENT
               | STRING
               | '?'
@@ -78,7 +86,7 @@ simpleValue ::= CODE_FRAGMENT
               | classID '<' valueListNE '>'
               | '[' valueList ']' ("<" type ">")?
               | "(" dagArg dagArgList? ")"
-              // TODO BANG Operator
+              | BANG_OPR IDENTIFIER
               | integer
               | IDENTIFIER
 
@@ -90,6 +98,7 @@ valueListNE ::= value ("," value)*
 
 rangeList ::= rangePiece (',' rangePiece)*
 rangePiece ::= integer '-' integer
+             | integer '...' integer
              | integer integer
              | integer
 
@@ -104,21 +113,16 @@ type    ::=  KeywordString | KeywordCode | KeywordBit | KeywordInt
             | KeywordList "<" type ">"
             | classID
 classID ::=  IDENTIFIER
-multiClassID ::= // TODO
+multiClassID ::= IDENTIFIER
 
 classStmt ::= KeywordClass IDENTIFIER templateArgList? objectBody
 templateArgList ::= "<" declaration ("," declaration)* ">"
-declaration ::= type IDENTIFIER ("=" value)?
+declaration ::= (type | "code") IDENTIFIER ("=" value)?
 
-multiClassStmt ::= KeywordMultiClass IDENTIFIER templateArgList? multiObjectBody
-multiObjectBody ::= baseClassList multiBody
-multiBody ::= ";" | "{" multiBodyList "}"
-multiBodyList ::= multiBodyItem*
-multiBodyItem ::= declaration ";"
-                 | KeywordLet IDENTIFIER [ "{" rangeList "}" ] "=" value ";"
-                 | KeywordField declaration ";"
-                 | KeywordDef value? objectBody
-
+multiClassStmt ::= KeywordMultiClass IDENTIFIER templateArgList? baseClassList
+                    "{" multiClassStatement+ "}"
+// todo: add foreach, if stmt
+multiClassStatement ::= assertStmt | defStmt | defmStmt | letStmt | defvarStmt
 
 objectBody      ::=  baseClassList body
 baseClassList   ::=  (":" baseClassListNE)?
@@ -136,6 +140,8 @@ includeDirective ::= KeywordInclude STRING
 
 defStmt ::= KeywordDef value? objectBody
 
-defmStmt ::= KeywordDefm [value] ":" baseClassListNE ";"
+defmStmt ::= KeywordDefm [value] baseClassList ";"
 
 defvarStmt ::= KeywordDefVar IDENTIFIER "=" value ";"
+
+assertStmt ::= KeywordAssert CONDITION "," STRING ";"

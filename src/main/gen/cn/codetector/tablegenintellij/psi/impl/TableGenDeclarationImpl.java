@@ -28,9 +28,9 @@ public class TableGenDeclarationImpl extends ASTWrapperPsiElement implements Tab
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TableGenType getType() {
-    return findNotNullChildByClass(TableGenType.class);
+    return findChildByClass(TableGenType.class);
   }
 
   @Override

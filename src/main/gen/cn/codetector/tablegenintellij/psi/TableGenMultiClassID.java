@@ -7,4 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface TableGenMultiClassID extends PsiElement {
 
+  @NotNull
+  PsiElement getIdentifier();
+
 }

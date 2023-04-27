@@ -8,7 +8,10 @@ import com.intellij.psi.PsiElement;
 public interface TableGenMultiClassStmt extends PsiElement {
 
   @NotNull
-  TableGenMultiObjectBody getMultiObjectBody();
+  TableGenBaseClassList getBaseClassList();
+
+  @NotNull
+  List<TableGenMultiClassStatement> getMultiClassStatementList();
 
   @Nullable
   TableGenTemplateArgList getTemplateArgList();
