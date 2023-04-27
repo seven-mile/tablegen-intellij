@@ -545,7 +545,7 @@ public class TableGenParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (type | KeywordCode) IDENTIFIER ("=" value)?
+  // ([KeywordField] type | KeywordCode) IDENTIFIER ("=" value)?
   public static boolean declaration(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "declaration")) return false;
     boolean r;
@@ -557,13 +557,33 @@ public class TableGenParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // type | KeywordCode
+  // [KeywordField] type | KeywordCode
   private static boolean declaration_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "declaration_0")) return false;
     boolean r;
-    r = type(b, l + 1);
+    Marker m = enter_section_(b);
+    r = declaration_0_0(b, l + 1);
     if (!r) r = consumeToken(b, KEYWORDCODE);
+    exit_section_(b, m, null, r);
     return r;
+  }
+
+  // [KeywordField] type
+  private static boolean declaration_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "declaration_0_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = declaration_0_0_0(b, l + 1);
+    r = r && type(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // [KeywordField]
+  private static boolean declaration_0_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "declaration_0_0_0")) return false;
+    consumeToken(b, KEYWORDFIELD);
+    return true;
   }
 
   // ("=" value)?

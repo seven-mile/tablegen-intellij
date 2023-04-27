@@ -54,7 +54,7 @@
     DEC_INT="regexp:[0-9]+"
 
     STRING='regexp:"([^\n\r"]|\\n|\\")*"'
-    CODE_FRAGMENT='regexp:\[\{([^}\]]*)}]'
+    CODE_FRAGMENT='regexp:\[\{([^}]*)}]'
     LINE_COMMENT="regexp://.*"
     BLOCK_COMMENT="regexp:/\*([^*]|\*+[^*/])*(\*+/)?"
 
@@ -222,7 +222,7 @@ multiClassID ::= IDENTIFIER
 
 classStmt ::= KeywordClass IDENTIFIER templateArgList? recordBody
 templateArgList ::= "<" declaration ("," declaration)* ">"
-declaration ::= (type | KeywordCode) IDENTIFIER ("=" value)?
+declaration ::= ([KeywordField] type | KeywordCode) IDENTIFIER ("=" value)?
 
 multiClassStmt ::= KeywordMultiClass IDENTIFIER templateArgList? parentClassList
                     "{" multiClassStatement+ "}"

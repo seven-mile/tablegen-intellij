@@ -69,7 +69,7 @@ class TableGenSyntaxHighlighter : SyntaxHighlighterBase() {
         tokenHighlighters[TableGenTypes.STRING] =
             arrayOf(createTextAttributesKey("TABLEGEN_STRINGLIT", DefaultLanguageHighlighterColors.STRING))
         tokenHighlighters[TableGenTypes.CODE_FRAGMENT] =
-            arrayOf(createTextAttributesKey("TABLEGEN_CODE_FRAGMENT", DefaultLanguageHighlighterColors.STRING))
+            arrayOf(createTextAttributesKey("TABLEGEN_CODE_FRAGMENT", DefaultLanguageHighlighterColors.INSTANCE_METHOD))
 
         // Identifiers
         tokenHighlighters[TableGenTypes.IDENTIFIER] =
