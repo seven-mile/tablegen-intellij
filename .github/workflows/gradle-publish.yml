@@ -41,5 +41,5 @@ jobs:
     - name: Save artifacts
       uses: actions/upload-artifact@v3
       with:
-          name: tablegen-intellij
+          name: tablegen-clion-unzip-this-before-use
           path: build/distributions/*.zip
