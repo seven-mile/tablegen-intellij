@@ -36,6 +36,7 @@ intellij {
 }
 
 compileKotlin {
+    dependsOn 'generateTGLexer'
     kotlinOptions.jvmTarget = "17"
 }
 compileTestKotlin {

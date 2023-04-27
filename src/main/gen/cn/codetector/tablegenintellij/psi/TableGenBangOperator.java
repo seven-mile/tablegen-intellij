@@ -5,12 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TableGenDefmStmt extends PsiElement {
-
-  @NotNull
-  TableGenParentClassList getParentClassList();
-
-  @Nullable
-  TableGenValue getValue();
+public interface TableGenBangOperator extends PsiElement {
 
 }

@@ -5,15 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TableGenSubClassRef extends PsiElement {
+public interface TableGenParentClassListNE extends PsiElement {
 
-  @Nullable
-  TableGenClassID getClassID();
-
-  @Nullable
-  TableGenMultiClassID getMultiClassID();
-
-  @Nullable
-  TableGenValueList getValueList();
+  @NotNull
+  List<TableGenClassRef> getClassRefList();
 
 }

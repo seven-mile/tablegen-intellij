@@ -29,14 +29,14 @@ public class TableGenMultiClassStmtImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @NotNull
-  public TableGenBaseClassList getBaseClassList() {
-    return findNotNullChildByClass(TableGenBaseClassList.class);
+  public List<TableGenMultiClassStatement> getMultiClassStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TableGenMultiClassStatement.class);
   }
 
   @Override
   @NotNull
-  public List<TableGenMultiClassStatement> getMultiClassStatementList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TableGenMultiClassStatement.class);
+  public TableGenParentClassList getParentClassList() {
+    return findNotNullChildByClass(TableGenParentClassList.class);
   }
 
   @Override

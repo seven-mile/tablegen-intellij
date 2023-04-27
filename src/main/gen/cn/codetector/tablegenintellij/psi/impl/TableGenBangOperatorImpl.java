@@ -11,38 +11,20 @@ import static cn.codetector.tablegenintellij.psi.TableGenTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import cn.codetector.tablegenintellij.psi.*;
 
-public class TableGenSubClassRefImpl extends ASTWrapperPsiElement implements TableGenSubClassRef {
+public class TableGenBangOperatorImpl extends ASTWrapperPsiElement implements TableGenBangOperator {
 
-  public TableGenSubClassRefImpl(@NotNull ASTNode node) {
+  public TableGenBangOperatorImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TableGenVisitor visitor) {
-    visitor.visitSubClassRef(this);
+    visitor.visitBangOperator(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof TableGenVisitor) accept((TableGenVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @Nullable
-  public TableGenClassID getClassID() {
-    return findChildByClass(TableGenClassID.class);
-  }
-
-  @Override
-  @Nullable
-  public TableGenMultiClassID getMultiClassID() {
-    return findChildByClass(TableGenMultiClassID.class);
-  }
-
-  @Override
-  @Nullable
-  public TableGenValueList getValueList() {
-    return findChildByClass(TableGenValueList.class);
   }
 
 }

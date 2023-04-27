@@ -29,8 +29,20 @@ public class TableGenSimpleValueImpl extends ASTWrapperPsiElement implements Tab
 
   @Override
   @Nullable
+  public TableGenBangFunction getBangFunction() {
+    return findChildByClass(TableGenBangFunction.class);
+  }
+
+  @Override
+  @Nullable
   public TableGenClassID getClassID() {
     return findChildByClass(TableGenClassID.class);
+  }
+
+  @Override
+  @Nullable
+  public TableGenConditionFunction getConditionFunction() {
+    return findChildByClass(TableGenConditionFunction.class);
   }
 
   @Override
@@ -79,12 +91,6 @@ public class TableGenSimpleValueImpl extends ASTWrapperPsiElement implements Tab
   @Nullable
   public PsiElement getIdentifier() {
     return findChildByType(IDENTIFIER);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getString() {
-    return findChildByType(STRING);
   }
 
 }

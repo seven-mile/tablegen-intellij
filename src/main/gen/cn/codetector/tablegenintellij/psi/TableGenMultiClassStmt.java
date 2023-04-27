@@ -8,10 +8,10 @@ import com.intellij.psi.PsiElement;
 public interface TableGenMultiClassStmt extends PsiElement {
 
   @NotNull
-  TableGenBaseClassList getBaseClassList();
+  List<TableGenMultiClassStatement> getMultiClassStatementList();
 
   @NotNull
-  List<TableGenMultiClassStatement> getMultiClassStatementList();
+  TableGenParentClassList getParentClassList();
 
   @Nullable
   TableGenTemplateArgList getTemplateArgList();

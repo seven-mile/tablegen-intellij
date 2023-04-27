@@ -5,9 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TableGenBinInt extends PsiElement {
+public interface TableGenConditionFunction extends PsiElement {
 
   @NotNull
-  PsiElement getBinInt();
+  List<TableGenCondClause> getCondClauseList();
+
+  @NotNull
+  TableGenCondOperator getCondOperator();
 
 }

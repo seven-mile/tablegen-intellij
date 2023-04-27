@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TableGenBaseClassListNE extends PsiElement {
+public interface TableGenIfBody extends PsiElement {
 
   @NotNull
-  List<TableGenSubClassRef> getSubClassRefList();
+  List<TableGenStatement> getStatementList();
 
 }

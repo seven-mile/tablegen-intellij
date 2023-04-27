@@ -8,7 +8,13 @@ import com.intellij.psi.PsiElement;
 public interface TableGenSimpleValue extends PsiElement {
 
   @Nullable
+  TableGenBangFunction getBangFunction();
+
+  @Nullable
   TableGenClassID getClassID();
+
+  @Nullable
+  TableGenConditionFunction getConditionFunction();
 
   @Nullable
   TableGenDagArg getDagArg();
@@ -33,8 +39,5 @@ public interface TableGenSimpleValue extends PsiElement {
 
   @Nullable
   PsiElement getIdentifier();
-
-  @Nullable
-  PsiElement getString();
 
 }

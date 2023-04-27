@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TableGenDefmStmt extends PsiElement {
+public interface TableGenForEachStmt extends PsiElement {
 
   @NotNull
-  TableGenParentClassList getParentClassList();
+  TableGenForEachIterator getForEachIterator();
 
-  @Nullable
-  TableGenValue getValue();
+  @NotNull
+  List<TableGenStatement> getStatementList();
 
 }

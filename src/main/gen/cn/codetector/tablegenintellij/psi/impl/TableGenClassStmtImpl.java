@@ -29,8 +29,8 @@ public class TableGenClassStmtImpl extends ASTWrapperPsiElement implements Table
 
   @Override
   @NotNull
-  public TableGenObjectBody getObjectBody() {
-    return findNotNullChildByClass(TableGenObjectBody.class);
+  public TableGenRecordBody getRecordBody() {
+    return findNotNullChildByClass(TableGenRecordBody.class);
   }
 
   @Override

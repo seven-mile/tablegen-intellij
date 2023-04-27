@@ -5,9 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TableGenMultiBodyList extends PsiElement {
+public interface TableGenClassRef extends PsiElement {
 
-  @NotNull
-  List<TableGenMultiBodyItem> getMultiBodyItemList();
+  @Nullable
+  TableGenClassID getClassID();
+
+  @Nullable
+  TableGenMultiClassID getMultiClassID();
+
+  @Nullable
+  TableGenValueList getValueList();
 
 }

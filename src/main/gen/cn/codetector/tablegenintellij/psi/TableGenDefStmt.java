@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface TableGenDefStmt extends PsiElement {
 
   @NotNull
-  TableGenObjectBody getObjectBody();
+  TableGenRecordBody getRecordBody();
 
   @Nullable
   TableGenValue getValue();

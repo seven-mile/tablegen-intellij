@@ -5,7 +5,13 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TableGenDefmID extends PsiElement {
+public interface TableGenDefSetStmt extends PsiElement {
+
+  @NotNull
+  List<TableGenStatement> getStatementList();
+
+  @NotNull
+  TableGenType getType();
 
   @NotNull
   PsiElement getIdentifier();

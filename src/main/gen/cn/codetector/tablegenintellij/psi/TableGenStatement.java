@@ -5,10 +5,16 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TableGenMultiClassStatement extends PsiElement {
+public interface TableGenStatement extends PsiElement {
 
   @Nullable
   TableGenAssertStmt getAssertStmt();
+
+  @Nullable
+  TableGenClassStmt getClassStmt();
+
+  @Nullable
+  TableGenDefSetStmt getDefSetStmt();
 
   @Nullable
   TableGenDefStmt getDefStmt();
@@ -27,5 +33,8 @@ public interface TableGenMultiClassStatement extends PsiElement {
 
   @Nullable
   TableGenLetStmt getLetStmt();
+
+  @Nullable
+  TableGenMultiClassStmt getMultiClassStmt();
 
 }

@@ -11,14 +11,14 @@ import static cn.codetector.tablegenintellij.psi.TableGenTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import cn.codetector.tablegenintellij.psi.*;
 
-public class TableGenDefmIDImpl extends ASTWrapperPsiElement implements TableGenDefmID {
+public class TableGenRecordBodyImpl extends ASTWrapperPsiElement implements TableGenRecordBody {
 
-  public TableGenDefmIDImpl(@NotNull ASTNode node) {
+  public TableGenRecordBodyImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TableGenVisitor visitor) {
-    visitor.visitDefmID(this);
+    visitor.visitRecordBody(this);
   }
 
   @Override
@@ -29,8 +29,14 @@ public class TableGenDefmIDImpl extends ASTWrapperPsiElement implements TableGen
 
   @Override
   @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  public TableGenBody getBody() {
+    return findNotNullChildByClass(TableGenBody.class);
+  }
+
+  @Override
+  @NotNull
+  public TableGenParentClassList getParentClassList() {
+    return findNotNullChildByClass(TableGenParentClassList.class);
   }
 
 }

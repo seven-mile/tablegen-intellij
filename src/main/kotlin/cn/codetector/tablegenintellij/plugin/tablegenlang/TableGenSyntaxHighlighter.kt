@@ -68,9 +68,9 @@ class TableGenSyntaxHighlighter : SyntaxHighlighterBase() {
 
         // Comments
         tokenHighlighters[TableGenTypes.BLOCK_COMMENT] =
-            arrayOf(createTextAttributesKey("TABLEGEN_COMMENTS", DefaultLanguageHighlighterColors.BLOCK_COMMENT))
+            arrayOf(createTextAttributesKey("TABLEGEN_BLOCK_COMMENTS", DefaultLanguageHighlighterColors.BLOCK_COMMENT))
         tokenHighlighters[TableGenTypes.LINE_COMMENT] =
-            arrayOf(createTextAttributesKey("TABLEGEN_COMMENTS", DefaultLanguageHighlighterColors.LINE_COMMENT))
+            arrayOf(createTextAttributesKey("TABLEGEN_LINE_COMMENTS", DefaultLanguageHighlighterColors.LINE_COMMENT))
     }
 
     override fun getTokenHighlights(tokenType: IElementType?): Array<TextAttributesKey> {

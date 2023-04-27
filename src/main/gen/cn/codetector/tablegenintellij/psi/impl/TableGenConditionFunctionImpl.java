@@ -11,14 +11,14 @@ import static cn.codetector.tablegenintellij.psi.TableGenTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import cn.codetector.tablegenintellij.psi.*;
 
-public class TableGenDefStmtImpl extends ASTWrapperPsiElement implements TableGenDefStmt {
+public class TableGenConditionFunctionImpl extends ASTWrapperPsiElement implements TableGenConditionFunction {
 
-  public TableGenDefStmtImpl(@NotNull ASTNode node) {
+  public TableGenConditionFunctionImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TableGenVisitor visitor) {
-    visitor.visitDefStmt(this);
+    visitor.visitConditionFunction(this);
   }
 
   @Override
@@ -29,14 +29,14 @@ public class TableGenDefStmtImpl extends ASTWrapperPsiElement implements TableGe
 
   @Override
   @NotNull
-  public TableGenRecordBody getRecordBody() {
-    return findNotNullChildByClass(TableGenRecordBody.class);
+  public List<TableGenCondClause> getCondClauseList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TableGenCondClause.class);
   }
 
   @Override
-  @Nullable
-  public TableGenValue getValue() {
-    return findChildByClass(TableGenValue.class);
+  @NotNull
+  public TableGenCondOperator getCondOperator() {
+    return findNotNullChildByClass(TableGenCondOperator.class);
   }
 
 }

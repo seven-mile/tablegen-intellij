@@ -47,7 +47,6 @@
     KeywordMultiClass="multiclass"
 
     IDENTIFIER="regexp:[0-9]*[a-zA-Z_]([a-zA-Z_]|[0-9])*"
-    BANG_OPR="!"
     VARNAME="regexp:[$][a-zA-Z_]([a-zA-Z_]|[0-9])*"
 
     BIN_INT="regexp:0b[0-1]+"
@@ -56,15 +55,63 @@
 
     STRING='regexp:"([^\n\r"]|\\n|\\")*"'
     CODE_FRAGMENT='regexp:\[\{([^}\]]*)}]'
-    // todo: fix condition
-    CONDITION='regexp:[!]*[a-zA-Z_][a-zA-Z_0-9]*'
     LINE_COMMENT="regexp://.*"
     BLOCK_COMMENT="regexp:/\*([^*]|\*+[^*/])*(\*+/)?"
+
+    // condition has a different syntax, so it is defined searately
+    CONDITION='!cond'
+    BangAdd = "!add"
+    BangAnd = "!and"
+    BangCast = "!cast"
+    BangCon = "!con"
+    BangDag = "!dag"
+    BangDiv = "!div"
+    BangEmpty = "!empty"
+    BangEq = "!eq"
+    BangExists = "!exists"
+    BangFilter = "!filter"
+    BangFind = "!find"
+    BangFoldl = "!foldl"
+    BangForeach = "!foreach"
+    BangGe = "!ge"
+    BangGetdagop = "!getdagop"
+    BangGt = "!gt"
+    BangHead = "!head"
+    BangIf = "!if"
+    BangInterleave = "!interleave"
+    BangIsa = "!isa"
+    BangLe = "!le"
+    BangListConcat = "!listconcat"
+    BangListRemove = "!listremove"
+    BangListSplat = "!listsplat"
+    BangLogTwo = "!logtwo"
+    BangLt = "!lt"
+    BangMul = "!mul"
+    BangNe = "!ne"
+    BangNot = "!not"
+    BangOr = "!or"
+    BangRange = "!range"
+    BangSetdagop = "!setdagop"
+    BangShl = "!shl"
+    BangSize = "!size"
+    BangSra = "!sra"
+    BangSrl = "!srl"
+    BangStrConcat = "!strconcat"
+    BangSub = "!sub"
+    BangSubst = "!subst"
+    BangSubstr = "!substr"
+    BangTail = "!tail"
+    BangToLower = "!tolower"
+    BangToUpper = "!toupper"
+    BangXor = "!xor"
   ]
 }
 tableGenFile ::= object*
 
-private object ::= !<<eof>> (classStmt | multiClassStmt | defStmt | defmStmt | includeDirective | letStmt | defvarStmt) {pin=3}
+private object ::= !<<eof>> (statement | includeDirective | preprocessorDirective) {pin=3}
+
+statement ::= assertStmt | classStmt | defStmt | defmStmt | defSetStmt | defvarStmt | forEachStmt | ifStmt | letStmt |
+                multiClassStmt
 
 binaryInt ::= BIN_INT
 decimalInteger ::= ["-"] DEC_INT
@@ -80,22 +127,29 @@ sliceElement ::= value
                 | value "..." value
                 | value "-" value
                 | value integer
-simpleValue ::= CODE_FRAGMENT
-              | STRING
-              | '?'
-              | '{' valueList '}'
-              | classID '<' valueListNE '>'
-              | '[' valueList ']' ("<" type ">")?
-              | "(" dagArg dagArgList? ")"
-              | BANG_OPR IDENTIFIER
-              | integer
-              | IDENTIFIER
+simpleValue ::= // SimpleValue | SimpleValue2
+                CODE_FRAGMENT | STRING+ | integer   // TokInteger | TokString+ | TokCode | "true" | "false"
+                // SimpleValue3
+                | '?'
+                // SimpleValue4
+                | '{' valueList '}'
+                // SimpleValue8
+                | classID '<' valueListNE '>'
+                // SimpleValue5
+                | '[' valueList ']' ('<' type '>')?  // "[" ValueList "]" ["<" Type ">"]
+                // SimpleValue6
+                | '(' dagArg dagArgList? ')'
+                // SimpleValue9
+                | bangFunction
+                | conditionFunction
+                // SimpleValue7
+                | IDENTIFIER                         // TokIdentifier
 
-dagArg ::= value (":" VARNAME)? | VARNAME
-dagArgList ::= dagArg ("," dagArg)*
+dagArg ::= value (':' VARNAME)? | VARNAME
+dagArgList ::= dagArg (',' dagArg)*
 
 valueList ::= valueListNE?
-valueListNE ::= value ("," value)*
+valueListNE ::= value (',' value)*
 
 rangeList ::= rangePiece (',' rangePiece)*
 rangePiece ::= integer '-' integer
@@ -103,8 +157,58 @@ rangePiece ::= integer '-' integer
              | integer integer
              | integer
 
-letStmt ::= KeywordLet letList KeywordIn "{" object* "}"
-            | KeywordLet letList KeywordIn object
+bangFunction ::= bangOperator ('<' type '>')? '(' valueListNE ')'
+bangOperator ::= BangAdd
+                | BangAnd
+                | BangCast
+                | BangCon
+                | BangDag
+                | BangDiv
+                | BangEmpty
+                | BangEq
+                | BangExists
+                | BangFilter
+                | BangFind
+                | BangFoldl
+                | BangForeach
+                | BangGe
+                | BangGetdagop
+                | BangGt
+                | BangHead
+                | BangIf
+                | BangInterleave
+                | BangIsa
+                | BangLe
+                | BangListConcat
+                | BangListRemove
+                | BangListSplat
+                | BangLogTwo
+                | BangLt
+                | BangMul
+                | BangNe
+                | BangNot
+                | BangOr
+                | BangRange
+                | BangSetdagop
+                | BangShl
+                | BangSize
+                | BangSra
+                | BangSrl
+                | BangStrConcat
+                | BangSub
+                | BangSubst
+                | BangSubstr
+                | BangTail
+                | BangToLower
+                | BangToUpper
+                | BangXor
+
+conditionFunction ::= condOperator '(' condClause (',' condClause)* ')'
+condOperator ::= CONDITION
+condClause ::= value ":" value
+
+letStmt ::= KeywordLet letList KeywordIn "{" statement* "}"
+            | KeywordLet letList KeywordIn statement
 letList ::= letItem ("," letItem)*
 letItem ::= IDENTIFIER [rangeList] "=" value
 
@@ -116,33 +220,45 @@ type    ::=  KeywordString | KeywordCode | KeywordBit | KeywordInt
 classID ::=  IDENTIFIER
 multiClassID ::= IDENTIFIER
 
-classStmt ::= KeywordClass IDENTIFIER templateArgList? objectBody
+classStmt ::= KeywordClass IDENTIFIER templateArgList? recordBody
 templateArgList ::= "<" declaration ("," declaration)* ">"
-declaration ::= (type | "code") IDENTIFIER ("=" value)?
+declaration ::= (type | KeywordCode) IDENTIFIER ("=" value)?
 
-multiClassStmt ::= KeywordMultiClass IDENTIFIER templateArgList? baseClassList
+multiClassStmt ::= KeywordMultiClass IDENTIFIER templateArgList? parentClassList
                     "{" multiClassStatement+ "}"
-// todo: add foreach, if stmt
-multiClassStatement ::= assertStmt | defStmt | defmStmt | letStmt | defvarStmt
 
-objectBody      ::=  baseClassList body
-baseClassList   ::=  (":" baseClassListNE)?
-baseClassListNE ::=  subClassRef ("," subClassRef)*
-subClassRef     ::=  (classID | multiClassID) ("<" valueList ">")?
-defmID          ::= IDENTIFIER
+multiClassStatement ::= assertStmt | defStmt | defmStmt | defvarStmt | forEachStmt | ifStmt | letStmt
+
+recordBody      ::=  parentClassList body
+parentClassList   ::=  (":" parentClassListNE)?
+parentClassListNE ::=  classRef ("," classRef)*
+classRef     ::=  (classID | multiClassID) ("<" valueList? ">")?
 
 body     ::=  ";" | "{" bodyList "}"
 bodyList ::=  bodyItem*
 bodyItem ::=  declaration ";"
-             | KeywordLet IDENTIFIER [ "{" rangeList "}" ] "=" value ";"
-             | KeywordField declaration ";"
+             | KeywordLet IDENTIFIER ["{" rangeList "}"] "=" value ";"
+             | KeywordDefVar IDENTIFIER "=" value ";"
+             | assertStmt
 
 includeDirective ::= KeywordInclude STRING
 
-defStmt ::= KeywordDef value? objectBody
+preprocessorDirective ::= "#define" | "#ifdef" | "#ifndef"
 
-defmStmt ::= KeywordDefm [value] baseClassList ";"
+defStmt ::= KeywordDef value? recordBody
+
+defmStmt ::= KeywordDefm [value] parentClassList ";"
 
 defvarStmt ::= KeywordDefVar IDENTIFIER "=" value ";"
 
-assertStmt ::= KeywordAssert CONDITION "," STRING ";"
+assertStmt ::= KeywordAssert conditionFunction "," STRING ";"
+
+ifStmt ::= KeywordIf value KeywordThen ifBody
+            | KeywordIf value KeywordThen ifBody KeywordElse ifBody
+ifBody ::= "{" statement* "}" | statement
+
+forEachStmt ::= KeywordForEach forEachIterator KeywordIn "{" statement* "}"
+                | KeywordForEach forEachIterator KeywordIn statement
+forEachIterator ::= IDENTIFIER "=" ("{" rangeList "}" | rangePiece | value)
+
+defSetStmt ::= KeywordDefset type IDENTIFIER "=" "{" statement* "}"

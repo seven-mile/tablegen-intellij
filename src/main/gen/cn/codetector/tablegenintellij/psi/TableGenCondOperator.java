@@ -5,9 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TableGenMultiBody extends PsiElement {
-
-  @Nullable
-  TableGenMultiBodyList getMultiBodyList();
+public interface TableGenCondOperator extends PsiElement {
 
 }

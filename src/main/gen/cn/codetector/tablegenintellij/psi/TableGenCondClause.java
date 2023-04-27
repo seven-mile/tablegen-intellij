@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TableGenDefmStmt extends PsiElement {
+public interface TableGenCondClause extends PsiElement {
 
   @NotNull
-  TableGenParentClassList getParentClassList();
-
-  @Nullable
-  TableGenValue getValue();
+  List<TableGenValue> getValueList();
 
 }

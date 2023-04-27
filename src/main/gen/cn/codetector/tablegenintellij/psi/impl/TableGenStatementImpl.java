@@ -11,14 +11,14 @@ import static cn.codetector.tablegenintellij.psi.TableGenTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import cn.codetector.tablegenintellij.psi.*;
 
-public class TableGenMultiClassStatementImpl extends ASTWrapperPsiElement implements TableGenMultiClassStatement {
+public class TableGenStatementImpl extends ASTWrapperPsiElement implements TableGenStatement {
 
-  public TableGenMultiClassStatementImpl(@NotNull ASTNode node) {
+  public TableGenStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TableGenVisitor visitor) {
-    visitor.visitMultiClassStatement(this);
+    visitor.visitStatement(this);
   }
 
   @Override
@@ -31,6 +31,18 @@ public class TableGenMultiClassStatementImpl extends ASTWrapperPsiElement implem
   @Nullable
   public TableGenAssertStmt getAssertStmt() {
     return findChildByClass(TableGenAssertStmt.class);
+  }
+
+  @Override
+  @Nullable
+  public TableGenClassStmt getClassStmt() {
+    return findChildByClass(TableGenClassStmt.class);
+  }
+
+  @Override
+  @Nullable
+  public TableGenDefSetStmt getDefSetStmt() {
+    return findChildByClass(TableGenDefSetStmt.class);
   }
 
   @Override
@@ -67,6 +79,12 @@ public class TableGenMultiClassStatementImpl extends ASTWrapperPsiElement implem
   @Nullable
   public TableGenLetStmt getLetStmt() {
     return findChildByClass(TableGenLetStmt.class);
+  }
+
+  @Override
+  @Nullable
+  public TableGenMultiClassStmt getMultiClassStmt() {
+    return findChildByClass(TableGenMultiClassStmt.class);
   }
 
 }

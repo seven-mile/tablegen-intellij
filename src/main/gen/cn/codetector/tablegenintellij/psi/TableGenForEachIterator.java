@@ -5,21 +5,18 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TableGenMultiBodyItem extends PsiElement {
-
-  @Nullable
-  TableGenDeclaration getDeclaration();
-
-  @Nullable
-  TableGenObjectBody getObjectBody();
+public interface TableGenForEachIterator extends PsiElement {
 
   @Nullable
   TableGenRangeList getRangeList();
 
   @Nullable
-  TableGenValue getValue();
+  TableGenRangePiece getRangePiece();
 
   @Nullable
+  TableGenValue getValue();
+
+  @NotNull
   PsiElement getIdentifier();
 
 }

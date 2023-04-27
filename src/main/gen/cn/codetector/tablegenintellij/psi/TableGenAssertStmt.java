@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface TableGenAssertStmt extends PsiElement {
 
   @NotNull
-  PsiElement getCondition();
+  TableGenConditionFunction getConditionFunction();
 
   @NotNull
   PsiElement getString();

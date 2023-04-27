@@ -29,6 +29,12 @@ public class TableGenBodyItemImpl extends ASTWrapperPsiElement implements TableG
 
   @Override
   @Nullable
+  public TableGenAssertStmt getAssertStmt() {
+    return findChildByClass(TableGenAssertStmt.class);
+  }
+
+  @Override
+  @Nullable
   public TableGenDeclaration getDeclaration() {
     return findChildByClass(TableGenDeclaration.class);
   }

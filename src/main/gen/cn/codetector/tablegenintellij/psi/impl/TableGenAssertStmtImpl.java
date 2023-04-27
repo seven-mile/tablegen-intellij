@@ -29,8 +29,8 @@ public class TableGenAssertStmtImpl extends ASTWrapperPsiElement implements Tabl
 
   @Override
   @NotNull
-  public PsiElement getCondition() {
-    return findNotNullChildByType(CONDITION);
+  public TableGenConditionFunction getConditionFunction() {
+    return findNotNullChildByClass(TableGenConditionFunction.class);
   }
 
   @Override

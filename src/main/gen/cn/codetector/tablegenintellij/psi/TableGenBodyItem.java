@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface TableGenBodyItem extends PsiElement {
 
   @Nullable
+  TableGenAssertStmt getAssertStmt();
+
+  @Nullable
   TableGenDeclaration getDeclaration();
 
   @Nullable

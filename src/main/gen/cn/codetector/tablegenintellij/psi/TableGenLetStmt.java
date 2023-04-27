@@ -8,27 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface TableGenLetStmt extends PsiElement {
 
   @NotNull
-  List<TableGenClassStmt> getClassStmtList();
-
-  @NotNull
-  List<TableGenDefStmt> getDefStmtList();
-
-  @NotNull
-  List<TableGenDefmStmt> getDefmStmtList();
-
-  @NotNull
-  List<TableGenDefvarStmt> getDefvarStmtList();
-
-  @NotNull
-  List<TableGenIncludeDirective> getIncludeDirectiveList();
-
-  @NotNull
   TableGenLetList getLetList();
 
   @NotNull
-  List<TableGenLetStmt> getLetStmtList();
-
-  @NotNull
-  List<TableGenMultiClassStmt> getMultiClassStmtList();
+  List<TableGenStatement> getStatementList();
 
 }

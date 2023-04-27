@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface TableGenClassStmt extends PsiElement {
 
   @NotNull
-  TableGenObjectBody getObjectBody();
+  TableGenRecordBody getRecordBody();
 
   @Nullable
   TableGenTemplateArgList getTemplateArgList();

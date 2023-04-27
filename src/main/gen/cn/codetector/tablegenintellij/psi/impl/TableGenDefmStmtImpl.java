@@ -29,8 +29,8 @@ public class TableGenDefmStmtImpl extends ASTWrapperPsiElement implements TableG
 
   @Override
   @NotNull
-  public TableGenBaseClassList getBaseClassList() {
-    return findNotNullChildByClass(TableGenBaseClassList.class);
+  public TableGenParentClassList getParentClassList() {
+    return findNotNullChildByClass(TableGenParentClassList.class);
   }
 
   @Override

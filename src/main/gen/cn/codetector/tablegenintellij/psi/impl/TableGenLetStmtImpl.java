@@ -29,50 +29,14 @@ public class TableGenLetStmtImpl extends ASTWrapperPsiElement implements TableGe
 
   @Override
   @NotNull
-  public List<TableGenClassStmt> getClassStmtList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TableGenClassStmt.class);
-  }
-
-  @Override
-  @NotNull
-  public List<TableGenDefStmt> getDefStmtList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TableGenDefStmt.class);
-  }
-
-  @Override
-  @NotNull
-  public List<TableGenDefmStmt> getDefmStmtList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TableGenDefmStmt.class);
-  }
-
-  @Override
-  @NotNull
-  public List<TableGenDefvarStmt> getDefvarStmtList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TableGenDefvarStmt.class);
-  }
-
-  @Override
-  @NotNull
-  public List<TableGenIncludeDirective> getIncludeDirectiveList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TableGenIncludeDirective.class);
-  }
-
-  @Override
-  @NotNull
   public TableGenLetList getLetList() {
     return findNotNullChildByClass(TableGenLetList.class);
   }
 
   @Override
   @NotNull
-  public List<TableGenLetStmt> getLetStmtList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TableGenLetStmt.class);
-  }
-
-  @Override
-  @NotNull
-  public List<TableGenMultiClassStmt> getMultiClassStmtList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TableGenMultiClassStmt.class);
+  public List<TableGenStatement> getStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TableGenStatement.class);
   }
 
 }

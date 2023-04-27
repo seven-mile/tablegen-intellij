@@ -11,11 +11,11 @@ public class TableGenVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitBaseClassList(@NotNull TableGenBaseClassList o) {
+  public void visitBangFunction(@NotNull TableGenBangFunction o) {
     visitPsiElement(o);
   }
 
-  public void visitBaseClassListNE(@NotNull TableGenBaseClassListNE o) {
+  public void visitBangOperator(@NotNull TableGenBangOperator o) {
     visitPsiElement(o);
   }
 
@@ -39,7 +39,23 @@ public class TableGenVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitClassRef(@NotNull TableGenClassRef o) {
+    visitPsiElement(o);
+  }
+
   public void visitClassStmt(@NotNull TableGenClassStmt o) {
+    visitPsiElement(o);
+  }
+
+  public void visitCondClause(@NotNull TableGenCondClause o) {
+    visitPsiElement(o);
+  }
+
+  public void visitCondOperator(@NotNull TableGenCondOperator o) {
+    visitPsiElement(o);
+  }
+
+  public void visitConditionFunction(@NotNull TableGenConditionFunction o) {
     visitPsiElement(o);
   }
 
@@ -59,11 +75,11 @@ public class TableGenVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitDefStmt(@NotNull TableGenDefStmt o) {
+  public void visitDefSetStmt(@NotNull TableGenDefSetStmt o) {
     visitPsiElement(o);
   }
 
-  public void visitDefmID(@NotNull TableGenDefmID o) {
+  public void visitDefStmt(@NotNull TableGenDefStmt o) {
     visitPsiElement(o);
   }
 
@@ -72,6 +88,22 @@ public class TableGenVisitor extends PsiElementVisitor {
   }
 
   public void visitDefvarStmt(@NotNull TableGenDefvarStmt o) {
+    visitPsiElement(o);
+  }
+
+  public void visitForEachIterator(@NotNull TableGenForEachIterator o) {
+    visitPsiElement(o);
+  }
+
+  public void visitForEachStmt(@NotNull TableGenForEachStmt o) {
+    visitPsiElement(o);
+  }
+
+  public void visitIfBody(@NotNull TableGenIfBody o) {
+    visitPsiElement(o);
+  }
+
+  public void visitIfStmt(@NotNull TableGenIfStmt o) {
     visitPsiElement(o);
   }
 
@@ -107,7 +139,15 @@ public class TableGenVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitObjectBody(@NotNull TableGenObjectBody o) {
+  public void visitParentClassList(@NotNull TableGenParentClassList o) {
+    visitPsiElement(o);
+  }
+
+  public void visitParentClassListNE(@NotNull TableGenParentClassListNE o) {
+    visitPsiElement(o);
+  }
+
+  public void visitPreprocessorDirective(@NotNull TableGenPreprocessorDirective o) {
     visitPsiElement(o);
   }
 
@@ -116,6 +156,10 @@ public class TableGenVisitor extends PsiElementVisitor {
   }
 
   public void visitRangePiece(@NotNull TableGenRangePiece o) {
+    visitPsiElement(o);
+  }
+
+  public void visitRecordBody(@NotNull TableGenRecordBody o) {
     visitPsiElement(o);
   }
 
@@ -131,7 +175,7 @@ public class TableGenVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitSubClassRef(@NotNull TableGenSubClassRef o) {
+  public void visitStatement(@NotNull TableGenStatement o) {
     visitPsiElement(o);
   }
 
