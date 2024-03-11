@@ -7,6 +7,7 @@
 
 name: Gradle Package
 
+# manually execute the action for the latest artifact.
 on:
   label:
     types:
